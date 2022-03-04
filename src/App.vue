@@ -1,17 +1,19 @@
 <template>
-  <div class="bg-blue-400">
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <main>
+    <Header />
+  </main>
+  <Table />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from '@/components/Header'
+import Table from './components/Table.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    Table
   }
 }
 </script>
