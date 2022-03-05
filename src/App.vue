@@ -1,19 +1,18 @@
 <template>
   <main>
     <Header />
+    <router-view class="container px-5 sm:px-20 py-20 flex justify-center" />
+
   </main>
-  <Table />
 </template>
 
 <script>
 import Header from '@/components/Header'
-import Table from './components/Table.vue'
 
 export default {
   name: 'App',
   components: {
-    Header,
-    Table
+    Header
   }
 }
 </script>
