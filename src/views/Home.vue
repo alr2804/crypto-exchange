@@ -1,17 +1,30 @@
 <template>
     <div>
-        <Table/>
+        <AssetsTable :assets="assets" />
 
     </div>
   
 </template>
 
 <script>
-import Table from '../components/Table.vue';
+import api from '../api'
+import AssetsTable from '../components/AssetsTable.vue';
 
 export default {
-  components: { Table },
-    name: "Home"
+  
+  name: "Home",
+  components: { AssetsTable },
+  data(){
+      return {
+          assets: []
+      }
+  },
+  
+  created() {
+      api.getAssets().then(assets => (this.assets = assets))
+  }
+
+
 };
 </script>
 
