@@ -25,9 +25,10 @@
           <b># {{element.rank}} </b>
         </td>
         <td>{{element.name}}</td>
-        <td>{{element.priceUsd}}</td>
-        <td>{{element.marketCapUsd}}</td>
-        <td>{{element.changePercent24Hr}}</td>
+        <td>{{dollarFilter(element.priceUsd)}}</td>
+        <td>{{dollarFilter(element.marketCapUsd)}}</td>
+        <td :class="element.changePercent24Hr.includes('-') ? 'text-red-600': 'text-green-600'"
+        >{{percentFilter(element.changePercent24Hr)}}</td>
         <td class="hidden sm:block"></td>
       </tr>
     </tbody>
@@ -35,6 +36,8 @@
 </template>
 
 <script>
+import {dollarFilter, percentFilter} from "../filters"
+
 export default {
     name: "AssetsTable",
     props: {
@@ -42,6 +45,10 @@ export default {
             type: Array,
             default: ()=>[]
         }
+    },
+    methods: {
+      dollarFilter,
+      percentFilter
     }
 };
 </script>
