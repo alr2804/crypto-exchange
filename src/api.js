@@ -3,8 +3,11 @@ const url = 'https://api.coincap.io/v2'
 function getAssets() {
     return fetch(`${url}/assets?limit=20`, {
         mode: 'cors',
+        method: 'GET',
         headers: {
-            Origin:'*'
+            "origin":"*"
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': 'Origin'
         }
     })
         .then(res => res.json())
@@ -16,7 +19,9 @@ function getAsset(coin) {
         mode: 'cors',
         method: 'GET',
         headers: {
-            //Origin:'*'
+            "origin":"*"
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': 'Origin'
         }
     })
     .then(res => res.json())
@@ -35,6 +40,7 @@ function getAssetHistory(coin) {
         mode: 'cors',
         method: 'GET',
         headers: {
+            "origin":"*"
             //'Access-Control-Allow-Origin': '*',
             //'Access-Control-Allow-Headers': 'Origin'
         }

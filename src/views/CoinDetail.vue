@@ -19,23 +19,23 @@
               <span>{{asset.rank}}</span>
             </li>
             <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio actual</b>
+              <b class="text-gray-600 mr-10 uppercase">Actual price</b>
               <span>{{dollarFilter(asset.priceUsd)}}</span>
             </li>
             <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio más bajo</b>
+              <b class="text-gray-600 mr-10 uppercase">Lowest price</b>
               <span>{{dollarFilter(min ) }}</span>
             </li>
             <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio más alto</b>
+              <b class="text-gray-600 mr-10 uppercase">Higher price</b>
               <span>{{dollarFilter(max)}}</span>
             </li>
             <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Precio Promedio</b>
+              <b class="text-gray-600 mr-10 uppercase">Average price</b>
               <span>{{dollarFilter(avg)}}</span>
             </li>
             <li class="flex justify-between">
-              <b class="text-gray-600 mr-10 uppercase">Variación 24hs</b>
+              <b class="text-gray-600 mr-10 uppercase">Change 24Hr</b>
               <span>{{percentFilter(asset.changePercent24Hr)}}</span>  
             </li>
           </ul>

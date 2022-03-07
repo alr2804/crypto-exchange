@@ -24,12 +24,23 @@
         <td>
           <b># {{element.rank}} </b>
         </td>
-        <td>{{element.name}}</td>
+        <td>
+          <router-link
+          class="hover:underline text-green-600"
+          :to="{name: 'CoinDetail', params: {id: element.id}}">
+          {{element.name}}
+          </router-link>
+          <small class="ml-1 text-gray-500">{{ element.symbol }}</small>
+          </td>
         <td>{{dollarFilter(element.priceUsd)}}</td>
         <td>{{dollarFilter(element.marketCapUsd)}}</td>
         <td :class="element.changePercent24Hr.includes('-') ? 'text-red-600': 'text-green-600'"
         >{{percentFilter(element.changePercent24Hr)}}</td>
-        <td class="hidden sm:block"></td>
+        <td class="hidden sm:block">
+          <Button @custom-click="goToCoin(element.id)" >
+            <span>Details</span>
+          </Button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -37,9 +48,13 @@
 
 <script>
 import {dollarFilter, percentFilter} from "../filters"
+import Button from "./Button.vue"
 
 export default {
     name: "AssetsTable",
+
+    components: {Button},
+
     props: {
         assets:{
             type: Array,
@@ -48,7 +63,10 @@ export default {
     },
     methods: {
       dollarFilter,
-      percentFilter
+      percentFilter,
+      goToCoin(id){
+        this.$router.push({name: 'CoinDetail', params: {id: id}}) 
+      }
     }
 };
 </script>
