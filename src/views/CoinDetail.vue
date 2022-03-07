@@ -1,4 +1,14 @@
-    <template v-if="asset.id">
+
+<template >
+  <div class="flex-col">
+    <div class="flex justify-center p-6">
+    <PulseLoader :loading="isLoading" :color="'#68d391'"> </PulseLoader>
+    </div>
+
+  </div>
+
+  <div v-if="!isLoading">
+
       <div class="flex flex-col sm:flex-row justify-around items-center">
         <div class="flex flex-col items-center">
           <img
@@ -61,21 +71,37 @@
           <span class="text-xl"></span>
         </div>
       </div>
-    </template>
+      <div class="mx-20 my-20">
+
+      <line-chart 
+        
+        :colors="['green']"
+        :min="min"
+        :max="max"
+        :data="history.map(e=> [e.date, parseFloat(e.priceUsd).toFixed(2)] )"
+      />
+      </div>
+
+
+  </div>
+</template>
 
 <script>
 
 import api from "../api"
 import {dollarFilter, percentFilter } from "../filters"
+import PulseLoader from "vue-spinner/src/MoonLoader.vue"
 
 export default {
     name: 'CoinDetail',
     data() {
         return {
-            asset:[],
-            history:[]
+          isLoading: false,
+          asset:[],
+          history:[]
         }
     },
+    components: {PulseLoader},
 
     computed: {
         min() {
@@ -100,7 +126,8 @@ export default {
 
 
     created() {
-        this.getCoin()
+      this.isLoading = true
+      this.getCoin()
 
     },
 
@@ -118,6 +145,7 @@ export default {
                     this.history = history;
                 }
             )
+            .finally( ()=> this.isLoading = false)
             
         },
         dollarFilter,
