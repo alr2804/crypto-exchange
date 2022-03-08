@@ -80,6 +80,29 @@
         :max="max"
         :data="history.map(e=> [e.date, parseFloat(e.priceUsd).toFixed(2)] )"
       />
+
+
+      <h3 class="text-xl my-10">Best exchange offers</h3>
+      <table class="w-full">
+        <tr v-for="m in markets" :key="`${m.exchangeId}-${m.priceUsd}`" class="border-b">
+          <td>
+            <b>{{m.exchangeId}}</b>
+          </td>
+          <td>{{ dollarFilter(m.priceUsd) }}</td>
+          <td>{{ m.baseSymbol }} / {{m.quoteSymbol}}</td>
+          <td>
+            <Button
+            v-if="!m.url"
+             @custom-click="getWebsite(m)" >
+            <span> Obtain link</span>
+            </Button>
+            <a v-else class="hover:underline text-green-600" :href="`${m.url}`" >{{m.url}}</a>
+
+            <a class="hover:underline text-green-600" target="_blanck"></a>
+          </td>
+        </tr>
+      </table>
+
       </div>
 
 
@@ -91,6 +114,7 @@
 import api from "../api"
 import {dollarFilter, percentFilter } from "../filters"
 import PulseLoader from "vue-spinner/src/MoonLoader.vue"
+import Button from "../components/Button.vue"
 
 export default {
     name: 'CoinDetail',
@@ -98,10 +122,11 @@ export default {
         return {
           isLoading: false,
           asset:[],
-          history:[]
+          history:[],
+          markets:[]
         }
     },
-    components: {PulseLoader},
+    components: {PulseLoader, Button},
 
     computed: {
         min() {
@@ -132,17 +157,28 @@ export default {
     },
 
     methods: {
+      getWebsite(exchange){
+        return api.getExchange(exchange.exchangeId)
+        .then(res => {
+          exchange.url = res.exchangeUrl
+        })
+
+      },
+
         getCoin(){
             const id = this.$route.params.id;
             
             Promise.all([
                 api.getAsset(id),
-                api.getAssetHistory(id)            
+                api.getAssetHistory(id),
+                api.getMarkets(id)         
             ])
             .then(
-                ([asset, history]) => {
+                ([asset, history,markets]) => {
                     this.asset = asset;
                     this.history = history;
+                    this.markets = markets;
+
                 }
             )
             .finally( ()=> this.isLoading = false)

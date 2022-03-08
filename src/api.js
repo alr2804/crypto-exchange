@@ -49,6 +49,34 @@ function getAssetHistory(coin) {
     .then(res => res.data)
 }
 
+function getMarkets(coin) {
+    return fetch(`${url}/assets/${coin}/markets?limit=5`, {
+        mode: 'cors',
+        method: 'GET',
+        headers: {
+            "origin":"*"
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': 'Origin'
+        }
+    })
+    .then(res => res.json())
+    .then(res => res.data)
+}
+
+function getExchange(id){
+    return fetch(`${url}/exchanges/${id}`, {
+        mode: 'cors',
+        method: 'GET',
+        headers: {
+            "origin":"*"
+            //'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Headers': 'Origin'
+        }
+    })
+    .then(res => res.json())
+    .then(res => res.data)
+}
+
 export default {
-    getAssets, getAsset, getAssetHistory
+    getAssets, getAsset, getAssetHistory, getMarkets,getExchange
 }
